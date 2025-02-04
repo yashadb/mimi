@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"strings"
 )
 
 var templateCache *template.Template
@@ -57,6 +58,9 @@ func buildTemplateCache() error {
 			}
 			// Return the data wrapped in a <pre> tag
 			return template.HTML(fmt.Sprintf("<pre>%s</pre>", buf.String())), nil
+		},
+		"join": func(sep string, s []string) string {
+			return strings.Join(s, sep)
 		},
 	})
 
