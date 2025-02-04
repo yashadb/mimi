@@ -2,25 +2,17 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-	"os"
 
-	"github.com/gorilla/handlers"
-	"github.com/zulubit/mimi/pkg/router"
+	"github.com/zulubit/mimi/pkg/mimi"
 )
 
 func main() {
-	// Set up the router
-	r := router.SetupRouter()
-
-	// Logging middleware
-	loggedRouter := handlers.LoggingHandler(os.Stdout, r)
 
 	fmt.Println("Mimi is alive.")
 
-	// Start the server
-	err := http.ListenAndServe(":8080", loggedRouter)
-	panic(err)
+	mimi := mimi.MimiExtend{}
+
+	mimi.Start()
 }
 
 // TODO:

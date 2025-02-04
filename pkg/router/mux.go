@@ -10,12 +10,22 @@ import (
 	"github.com/zulubit/mimi/pkg/load"
 )
 
+type ExtraRoute struct {
+	Path    string
+	Method  string
+	Handler http.HandlerFunc
+}
+
 // SetupRouter initializes the mux router and defines the routes
-func SetupRouter() *mux.Router {
+func SetupRouter(extraRoutes []ExtraRoute) *mux.Router {
 
 	// Create a new router
 	r := mux.NewRouter()
 	r.StrictSlash(true)
+
+	for _, route := range extraRoutes {
+		r.PathPrefix(route.Path).HandlerFunc(route.Handler).Methods(route.Method)
+	}
 
 	// API v1 routes
 	api := r.PathPrefix("/mimi-api/v1").Subrouter()
